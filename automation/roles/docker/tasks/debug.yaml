@@ -1,0 +1,12 @@
+- name: just print something
+  #remote_user: provisioner
+  #become: yes
+  debug:
+    msg: "just print something"
+
+- name: which user
+  shell: whoami
+  register: shell_whoami
+- name: print the result
+  debug:
+    var=shell_whoami.stdout_lines

@@ -1,0 +1,25 @@
+- name: make sure we have a 'provisioners' group
+  group:
+    name: provisioners
+    state: present
+
+- name: allow 'provisioners' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%provisioners'
+    line: '%provisioners ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: add user to the 'provisioners' group
+  user:
+    name=provisioner
+    groups=provisioners
+    append=yes
+    state=present
+    createhome=yes
+
+- name: set up authorized keys for the provisioner user
+  authorized_key: user=provisioner key="{{item}}"
+  with_file:
+    - /home/user/.ssh/id_rsa.pub

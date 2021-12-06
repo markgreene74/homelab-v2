@@ -1,0 +1,9 @@
+---
+- name: shutdown all the VMs 
+  hosts: all
+  remote_user: provisioner
+  become: yes
+
+  tasks:
+  - name: shutdown
+    command: shutdown +1

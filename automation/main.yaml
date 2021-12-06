@@ -1,0 +1,19 @@
+---
+- import_playbook: test-connection.yaml
+
+- name: run the common role 
+  hosts: all
+  remote_user: user
+  become: yes
+
+  roles:
+    - common
+
+- name: provision a concourse node
+  hosts: concourse
+  remote_user: provisioner
+  become: yes
+
+  roles:
+    - docker
+    - cd
