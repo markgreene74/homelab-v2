@@ -1,2 +1,2 @@
 - name: something
-  import_tasks: debug.yaml
+  import_tasks: install-docker.yaml
