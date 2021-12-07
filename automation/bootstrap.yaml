@@ -16,4 +16,7 @@
 
   roles:
     - docker
-    - cd
+    - role: cicd
+      vars:
+        concourse_directory: /opt/concourse
+

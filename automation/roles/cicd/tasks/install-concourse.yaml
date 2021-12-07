@@ -1,0 +1,9 @@
+    - name: Create the target directory
+      file:
+        path: "{{ concourse_directory }}"
+        state: directory
+
+    - name: Download the docker-compose file
+      get_url:
+        url: https://concourse-ci.org/docker-compose.yml 
+        dest: "{{ concourse_directory }}"

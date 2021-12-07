@@ -1,2 +1,0 @@
-- name: something
-  import_tasks: debug.yaml
