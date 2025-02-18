@@ -62,11 +62,18 @@
   apt:
     name: "*"
     state: latest
-  register: reboot_needed
+  register: updated_packages
 
-- name: Reboot after installing updates
-  reboot:
-  when: reboot_needed is changed
+- name: Show updated packages
+  debug:
+    msg: "{{updated_packages}}"
+  when: updated_packages is changed
+
+- name: Pause for 30 seconds
+  pause:
+    prompt: Check the updated packages list, might needed rebooting
+    seconds: 30
+    when: updated_packages is changed
 
 - name: Run the equivalent of "apt-get clean" as a separate step
   apt:
