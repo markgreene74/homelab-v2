@@ -1,0 +1,73 @@
+# roles/base/tasks/main.yml
+# Install baseline software and updates
+
+- name: Apply changes to /etc/inputrc (history-search-backward)
+  lineinfile:
+    path: /etc/inputrc
+    regexp: '^#\s*.*history-search-backward'
+    line: '"\e[5~": history-search-backward'
+
+- name: Apply changes to /etc/inputrc (history-search-forward)
+  lineinfile:
+    path: /etc/inputrc
+    regexp: '^#\s*.*history-search-forward'
+    line: '"\e[6~": history-search-forward'
+
+- name: Update the package list
+  apt:
+    update_cache: yes
+
+- name: Remove unneeded packages
+  apt:
+    name:
+      - libreoffice-calc
+      - libreoffice-draw
+      - libreoffice-impress
+      - libreoffice-math
+      - libreoffice-style-yaru
+      - libreoffice-writer
+      - libreoffice-base-core
+      - libreoffice-common
+      - libreoffice-core
+      - libreoffice-gnome
+      - libreoffice-gtk3
+      - libreoffice-style-colibre
+      - libreoffice-style-elementary
+      - libreoffice-uiconfig-common
+      - rhythmbox
+      - rhythmbox-data
+      - rhythmbox-plugins
+      - rhythmbox-plugin-alternative-toolbar
+    state: absent
+    purge: true
+
+- name: Remove dependencies that are no longer required and purge their configuration files
+  apt:
+    autoremove: yes
+    purge: true
+
+- name: Install the baseline software
+  apt:
+    name:
+      - wget
+      - curl
+      - vim
+      - tmux
+      - sudo
+      - pipx
+      - git
+    state: latest
+
+- name: Install updates
+  apt:
+    name: "*"
+    state: latest
+  register: reboot_needed
+
+- name: Reboot after installing updates
+  reboot:
+  when: reboot_needed is changed
+
+- name: Run the equivalent of "apt-get clean" as a separate step
+  apt:
+    clean: yes

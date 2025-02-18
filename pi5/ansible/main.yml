@@ -1,0 +1,9 @@
+--- # Main playbook
+
+- hosts: localhost
+  connection: local
+  vars:
+    foo: "bar"
+  roles:
+    - role: base
+      become: yes
