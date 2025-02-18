@@ -3,7 +3,9 @@
 - hosts: localhost
   connection: local
   vars:
-    foo: "bar"
+    user: "gc"
   roles:
     - role: base
+      become: yes
+    - role: docker
       become: yes
