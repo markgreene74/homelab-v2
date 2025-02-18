@@ -73,7 +73,7 @@
   pause:
     prompt: Check the updated packages list, might needed rebooting
     seconds: 30
-    when: updated_packages is changed
+  when: updated_packages is changed
 
 - name: Run the equivalent of "apt-get clean" as a separate step
   apt:
