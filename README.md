@@ -2,23 +2,12 @@
 
 Simple homelab for local testing.
 
-Components:
-- concourse WIP
-- prometheus/grafana WIP
+Main components:
+- (WIP) [`concourse`](https://github.com/concourse/concourse), as a general lightweight "*continuous thing-doer*"
+- (WIP) `prometheus`/`grafana`
 
-## pre-flight
+## [pi5](docs/pi5.md)
 
-Make sure the VMs are provisioned (Ubuntu 20.04) and on each VM the user is present and in the sudoersfile, and the SSH key in place.
+For simple day-to-day tasks, nice local dashboards and general fun/little projects.
 
-## bootstrap
-
-```
-cd automation
-ansible-playbook bootstrap.yaml
-```
-
-The bootstrap will create the user `provisioner` and make sure it can execute tasks on each VM. It will also install packages and perform upgrades in the `common` role.
-
-It is possible to assign roles in `bootstrap.yaml`, for example to create a `concourse` node, a `prometheus` node, etc.
-
-
+## [hp z800](docs/hpz800.md)
