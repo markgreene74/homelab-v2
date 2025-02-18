@@ -1,3 +1,7 @@
+## custom section
 *.retry
 hosts
 *.bak
+
+# pyenv and pre-commit stuff
+.python-version
